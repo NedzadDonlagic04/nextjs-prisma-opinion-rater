@@ -25,7 +25,8 @@ export default function RootLayout({
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
-                        minHeight="100vh">
+                        minHeight="100vh"
+                        sx={{ px: 3 }}>
                         <Box 
                             display='flex'
                             alignItems="center"

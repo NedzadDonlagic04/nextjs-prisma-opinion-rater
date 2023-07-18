@@ -7,8 +7,8 @@ import Link from "next/link";
 export default function SignUp() {
     return (
         <>
-            <Typography variant="h3">Sign Up</Typography>
-            <form style={{ width: "100%" }}>
+            <Typography variant="h3" sx={{ textAlign: 'center' }}>Sign Up</Typography>
+            <form style={{ width: "100%", maxWidth: '450px' }}>
                 <Box 
                     display='flex'
                     flexDirection='column'
@@ -28,7 +28,7 @@ export default function SignUp() {
             </form>
             <Box display="flex" justifyContent="flex-end" sx={{ width: 1 }}>
                 <Link
-                    style={{ fontSize: ".9rem", color: "royalblue" }}
+                    style={{ fontSize: ".9rem", color: "royalblue", textAlign: 'center' }}
                     href="/login"
                 >
                     Have an account? Login
