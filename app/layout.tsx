@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
+import "@styles/globals.css";
 
 import FaviconSetup from '@components/FaviconSetup';
+import Box from "@mui/material/Box";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,11 +17,23 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang='en'>
+        <html lang="en">
             <FaviconSetup />
             <body className={`${inter.className}`}>
-                <main className='app'>
-                    {children}
+                <main className="app">
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        minHeight="100vh">
+                        <Box 
+                            display='flex'
+                            alignItems="center"
+                            flexDirection='column'
+                            sx={{ minWidth: 1/2, boxShadow: 3, px: 6, py: 4, borderRadius: 2, gap: 3 }}>
+                            {children}
+                        </Box>
+                    </Box>
                 </main>
             </body>
         </html>
