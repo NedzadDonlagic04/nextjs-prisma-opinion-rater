@@ -8,18 +8,17 @@ export default function Login() {
     return (
         <>
             <Typography variant="h3">Login</Typography>
-            <form style={{ width: "70%" }}>
+            <form style={{ width: "100%" }}>
                 <Box 
                     display='flex'
                     flexDirection='column'
                     sx={{ gap: 3 }}>
-                    <TextField required label="Username" sx={{ width: 1 }} />
+                    <TextField required label="Username" />
                     <TextField
                         required
                         label="Password"
                         type="password"
                         autoComplete="current-password"
-                        sx={{ width: 1 }}
                     />
                     <Button
                         variant="contained">

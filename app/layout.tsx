@@ -30,7 +30,7 @@ export default function RootLayout({
                             display='flex'
                             alignItems="center"
                             flexDirection='column'
-                            sx={{ minWidth: 1/2, boxShadow: 3, px: 6, py: 4, borderRadius: 2, gap: 3 }}>
+                            sx={{ width: 1, maxWidth: '720px', boxShadow: 3, px: 6, py: 4, borderRadius: 2, gap: 3 }}>
                             {children}
                         </Box>
                     </Box>
