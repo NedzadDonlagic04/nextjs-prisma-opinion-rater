@@ -3,6 +3,7 @@ import "@styles/globals.css";
 
 import FaviconSetup from '@components/FaviconSetup';
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,13 +28,11 @@ export default function RootLayout({
                         alignItems="center"
                         minHeight="100vh"
                         sx={{ px: 3 }}>
-                        <Box 
-                            display='flex'
-                            alignItems="center"
-                            flexDirection='column'
+                        <Stack
+                            alignItems="center" 
                             sx={{ width: 1, maxWidth: '720px', boxShadow: 3, px: 6, py: 4, borderRadius: 2, gap: 3 }}>
                             {children}
-                        </Box>
+                        </Stack>
                     </Box>
                 </main>
             </body>
