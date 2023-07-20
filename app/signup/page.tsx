@@ -1,9 +1,6 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import PasswordInputField from "@components/form/PasswordInputField";
 import RHForm from "@components/form/RHForm";
 
 export default function SignUp() {
