@@ -1,3 +1,4 @@
+import PasswordInputField from "@components/PasswordInputField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -13,13 +14,8 @@ export default function Login() {
                     display='flex'
                     flexDirection='column'
                     sx={{ gap: 3 }}>
-                    <TextField required label="Username" />
-                    <TextField
-                        required
-                        label="Password"
-                        type="password"
-                        autoComplete="current-password"
-                    />
+                    <TextField required label="Username" name="username" />
+                    <PasswordInputField label="Password" name="password" />
                     <Button
                         variant="contained">
                         Login

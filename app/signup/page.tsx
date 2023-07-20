@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
+import PasswordInputField from "@components/PasswordInputField";
 
 export default function SignUp() {
     return (
@@ -13,13 +14,10 @@ export default function SignUp() {
                     display='flex'
                     flexDirection='column'
                     sx={{ gap: 3 }}>
-                    <TextField required label="Username" />
-                    <TextField
-                        required
-                        label="Password"
-                        type="password"
-                        autoComplete="current-password"
-                    />
+                    <TextField required label="Username" name="username"/>
+                    <TextField required label="Email" name="email"/>
+                    <PasswordInputField label="Password" name="password" />
+                    <PasswordInputField label="Confirm Password" name="confirm-password" />
                     <Button
                         variant="contained">
                         Sign Up
