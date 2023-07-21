@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "@styles/globals.css";
 
-import FaviconSetup from '@components/FaviconSetup';
+import FaviconSetup from "@components/FaviconSetup";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
