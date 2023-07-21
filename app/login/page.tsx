@@ -1,4 +1,4 @@
-import RHForm from "@components/form/RHForm";
+import LoginForm from "@components/forms/LoginForm";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
@@ -7,7 +7,7 @@ export default function Login() {
     return (
         <>
             <Typography variant="h3" sx={{ textAlign: 'center' }}>Login</Typography>
-            <RHForm type="login"/>
+            <LoginForm />
             <Box 
                 display="flex" 
                 justifyContent="flex-end" 
