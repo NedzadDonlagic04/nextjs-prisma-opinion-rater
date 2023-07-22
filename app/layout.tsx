@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "@styles/globals.css";
 
-import FaviconSetup from "@components/FaviconSetup";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
@@ -9,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
     title: 'Opinion Rater',
-    description: 'Create and rate people\'s opinions'
+    description: 'Create and rate people\'s opinions',
 };
 
 export default function RootLayout({ 
@@ -19,7 +18,6 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <FaviconSetup />
             <body className={`${inter.className}`}>
                 <main className="app">
                     <Box
