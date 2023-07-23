@@ -7,6 +7,8 @@ import Stack from "@mui/material/Stack";
 
 import { Controller, useForm } from "react-hook-form";
 import { LoginFormInterface } from "./LoginForm";
+import { signUpSchema } from "@lib/yup/schemas";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export interface SignUpFormInterface extends LoginFormInterface {
     email: string;
@@ -14,7 +16,10 @@ export interface SignUpFormInterface extends LoginFormInterface {
 }
 
 export default function SignUpForm() {
-    const { register, handleSubmit, control } = useForm<SignUpFormInterface>();
+    const { register, handleSubmit, control, formState } = useForm<SignUpFormInterface>({
+        resolver: yupResolver(signUpSchema),
+    });
+    const { errors } = formState;
 
     const onSubmit = (data: SignUpFormInterface) => {
         console.log(data);
@@ -29,8 +34,14 @@ export default function SignUpForm() {
                     required
                     label="Username"
                     {...register("username")}
-                />
-                <TextField required label="Email" {...register("email")} />
+                    error={!!errors.username}
+                    helperText={errors.username?.message} />
+                <TextField 
+                    required 
+                    label="Email" 
+                    {...register("email")} 
+                    error={!!errors.email}
+                    helperText={errors.email?.message} />
                 <Controller
                     name="password"
                     control={control}
@@ -40,7 +51,8 @@ export default function SignUpForm() {
                             label="Password"
                             {...field}
                             ref={field.ref}
-                        />
+                            error={!!errors.password}
+                            helperText={errors.password?.message} />
                     )}
                 />
                 <Controller
@@ -52,7 +64,8 @@ export default function SignUpForm() {
                             label="Confirm Password"
                             {...field}
                             ref={field.ref}
-                        />
+                            error={!!errors.confirmPassword}
+                            helperText={errors.confirmPassword?.message} />
                     )}
                 />
                 <Button variant="contained" type="submit">
