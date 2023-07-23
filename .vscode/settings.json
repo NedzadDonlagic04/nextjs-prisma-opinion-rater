@@ -1,5 +1,12 @@
 {
     "typescript.tsdk": "node_modules/.pnpm/typescript@5.0.4/node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
-    "cSpell.words": ["loged", "nextjs", "signup", "tailwindcss", "twimg"]
+    "cSpell.words": [
+        "hookform",
+        "loged",
+        "nextjs",
+        "signup",
+        "tailwindcss",
+        "twimg"
+    ]
 }
