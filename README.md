@@ -8,6 +8,6 @@ opinions.
 This project will also be my first attempt at working
 with [Material UI](https://mui.com/).
 
-Form validation was done using [React-Hook-Form](https://www.react-hook-form.com/) and [yup](https://github.com/jquense/yup) 
+Form validation was done using [React-Hook-Form](https://www.react-hook-form.com/), [React-Hook-Form-Resolvers](https://github.com/react-hook-form/resolvers) and [yup](https://github.com/jquense/yup) 
 
 Icons are taken from [Icons8](https://icons8.com)
