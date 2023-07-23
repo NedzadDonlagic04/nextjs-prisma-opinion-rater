@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useState } from "react";
+import { ReactNode, forwardRef, useState } from "react";
 
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,9 +10,11 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 interface PropTypes {
     label: string,
+    error: boolean | undefined
+    helperText: ReactNode
 }
 
-const PassWordInputField = forwardRef(function PasswordInputField({ label, ...rest }: PropTypes, ref) {
+const PassWordInputField = forwardRef(function PasswordInputField({ label, error, helperText, ...rest }: PropTypes, ref) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
