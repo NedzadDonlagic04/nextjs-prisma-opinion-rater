@@ -22,6 +22,8 @@ const PassWordInputField = forwardRef(function PasswordInputField({ label, error
             required
             label={label}
             inputRef={ref}
+            error={error}
+            helperText={helperText}
             {...rest}
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
