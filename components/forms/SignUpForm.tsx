@@ -19,7 +19,10 @@ export default function SignUpForm() {
     const { errors } = formState;
 
     const onSubmit = (data: SignUpFormType) => {
-        console.log(data);
+        fetch('/api/user/signup', {
+            method: "POST",
+            body: JSON.stringify(data),
+        }).then(res => console.log(res));
     }
 
     return (

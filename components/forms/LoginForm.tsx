@@ -19,9 +19,11 @@ export default function LoginFormComponents() {
     const { errors } = formState;
 
     const onSubmit = (data: LoginFormType) => {
-        console.log(data);
+        fetch('/api/user/login', {
+            method: "POST",
+            body: JSON.stringify(data),
+        }).then(res => console.log(res));
     }
-
     return (
         <form
             onSubmit={handleSubmit(onSubmit)} 
