@@ -6,22 +6,19 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 import { Controller, useForm } from "react-hook-form";
-import { LoginFormInterface } from "./LoginForm";
 import { signUpSchema } from "@lib/yup/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup';
 
-export interface SignUpFormInterface extends LoginFormInterface {
-    email: string;
-    confirmPassword: string;
-}
+type SignUpFormType = yup.InferType<typeof signUpSchema>;
 
 export default function SignUpForm() {
-    const { register, handleSubmit, control, formState } = useForm<SignUpFormInterface>({
+    const { register, handleSubmit, control, formState } = useForm<SignUpFormType>({
         resolver: yupResolver(signUpSchema),
     });
     const { errors } = formState;
 
-    const onSubmit = (data: SignUpFormInterface) => {
+    const onSubmit = (data: SignUpFormType) => {
         console.log(data);
     }
 
