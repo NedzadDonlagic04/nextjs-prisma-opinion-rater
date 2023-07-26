@@ -22,7 +22,7 @@ export default function SignUpForm() {
         fetch('/api/user/signup', {
             method: "POST",
             body: JSON.stringify(data),
-        }).then(res => console.log(res));
+        });
     }
 
     return (

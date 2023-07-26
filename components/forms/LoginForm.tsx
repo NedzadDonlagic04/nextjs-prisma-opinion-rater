@@ -22,7 +22,7 @@ export default function LoginFormComponents() {
         fetch('/api/user/login', {
             method: "POST",
             body: JSON.stringify(data),
-        }).then(res => console.log(res));
+        });
     }
     return (
         <form
