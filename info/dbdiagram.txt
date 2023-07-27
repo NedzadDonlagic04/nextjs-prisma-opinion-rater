@@ -1,0 +1,18 @@
+Table User {
+  user_id Integer [PK]
+  user_name String
+  user_email String
+  password String
+}
+
+Table Post {
+  post_id Integer [PK]
+  post_title String
+  post_author_id Integer [ref: > User.user_id]
+}
+
+Table Likes {
+  post_id Integer [PK, ref: > Post.post_id]
+  user_id Integer [PK, ref: > User.user_id]
+  like Integer
+}
