@@ -1,6 +1,7 @@
 import { HTTP_STATUS } from "@lib/constants";
 import { signUpSchema } from "@lib/yup/schemas";
 import * as yup from 'yup';
+import prisma from "@lib/prisma";
 
 type SignUpFormData = yup.InferType<typeof signUpSchema>;
 
@@ -10,7 +11,13 @@ export async function POST(req: Request) {
     try {
         signUpFormData = await signUpSchema.validate(await req.json());
 
-        console.log(signUpFormData);
+        await prisma.user.create({
+            data: {
+                user_name: signUpFormData.username,
+                user_email: signUpFormData.email,
+                password: signUpFormData.password,        
+            }
+        });
     } catch(err) {
         if(err instanceof yup.ValidationError) {
             console.error(`Error message: ${err.message}`);
