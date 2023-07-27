@@ -1,3 +1,4 @@
+import { HTTP_STATUS } from "@lib/constants";
 import { signUpSchema } from "@lib/yup/schemas";
 import * as yup from 'yup';
 
@@ -11,15 +12,22 @@ export async function POST(req: Request) {
 
         console.log(signUpFormData);
     } catch(err) {
-        if(err instanceof yup.ValidationError) console.error(`Error message: ${err.message}`);
-        else console.error(`Error: ${err}`);
-        
-        return new Response("Validation error", {
-            status: 400
-        });
+        if(err instanceof yup.ValidationError) {
+            console.error(`Error message: ${err.message}`);
+
+            return new Response(null, {
+                status: HTTP_STATUS.VALIDATION_ERROR,
+            });
+        } else {
+            console.error(`Error: ${err}`);
+
+            return new Response(null, {
+                status: HTTP_STATUS.USERNAME_ALREADY_EXISTS
+            });
+        }
     } 
 
-    return new Response('User created', {
-        status: 200
+    return new Response(null, {
+        status: HTTP_STATUS.SUCCESS
     });
 }
