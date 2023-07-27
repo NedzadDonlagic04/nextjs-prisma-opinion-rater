@@ -3,20 +3,39 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+  provider          = "postgresql"
+  url               = env("DATABASE_URL") // uses connection pooling
 }
 
-model users {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  image     String
+model User {
+  user_id    Int      @id @default(autoincrement())
+  user_name  String   @unique
+  user_email String
+  password   String
+  posts      Post[]
+  Likes      Likes[]
+  createdAt  DateTime @default(now())
+}
+
+model Post {
+  post_id        Int      @id @default(autoincrement())
+  post_title     String
+  post_author_id Int
+  author         User     @relation(fields: [post_author_id], references: [user_id])
+  Likes          Likes[]
+  createdAt      DateTime @default(now())
+}
+
+model Likes {
+  post_id   Int
+  user_id   Int
+  like      Int
+  user      User     @relation(fields: [user_id], references: [user_id])
+  post      Post     @relation(fields: [post_id], references: [post_id])
   createdAt DateTime @default(now())
+
+  @@id([post_id, user_id])
 }
