@@ -1,5 +1,7 @@
 "use client"
 
+import { useRouter } from "next/navigation";
+
 import TextField from "@mui/material/TextField";
 import PasswordInputField from "./PasswordInputField";
 import Button from "@mui/material/Button";
@@ -9,40 +11,55 @@ import { Controller, useForm } from "react-hook-form";
 import { signUpSchema } from "@lib/yup/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
+import { HTTP_STATUS } from "@lib/constants";
 
 type SignUpFormType = yup.InferType<typeof signUpSchema>;
 
 export default function SignUpForm() {
-    const { register, handleSubmit, control, formState } = useForm<SignUpFormType>({
+    const router = useRouter();
+
+    const { register, handleSubmit, control, formState, setError } = useForm<SignUpFormType>({
         resolver: yupResolver(signUpSchema),
     });
     const { errors } = formState;
 
     const onSubmit = (data: SignUpFormType) => {
-        fetch('/api/user/signup', {
+        fetch("/api/user/signup", {
             method: "POST",
             body: JSON.stringify(data),
-        })/* .then(res => console.log(res)) */;
-        // ^ Useful for debugging
-    }
+        }).then((res) => {
+            if (res.status === HTTP_STATUS.SUCCESS) {
+                localStorage.setItem("user_creation", "success");
+                router.push("/login");
+            } else if (res.status === HTTP_STATUS.USERNAME_ALREADY_EXISTS) {
+                setError("username", {
+                    type: "custom",
+                    message: "Username already exists!",
+                });
+            }
+        });
+    };
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            style={{ width: "100%", maxWidth: "450px" }}>
+            style={{ width: "100%", maxWidth: "450px" }}
+        >
             <Stack sx={{ gap: 3 }}>
                 <TextField
                     required
                     label="Username"
                     {...register("username")}
                     error={!!errors.username}
-                    helperText={errors.username?.message} />
-                <TextField 
-                    required 
-                    label="Email" 
-                    {...register("email")} 
+                    helperText={errors.username?.message}
+                />
+                <TextField
+                    required
+                    label="Email"
+                    {...register("email")}
                     error={!!errors.email}
-                    helperText={errors.email?.message} />
+                    helperText={errors.email?.message}
+                />
                 <Controller
                     name="password"
                     control={control}
@@ -53,7 +70,8 @@ export default function SignUpForm() {
                             {...field}
                             ref={field.ref}
                             error={!!errors.password}
-                            helperText={errors.password?.message} />
+                            helperText={errors.password?.message}
+                        />
                     )}
                 />
                 <Controller
@@ -66,7 +84,8 @@ export default function SignUpForm() {
                             {...field}
                             ref={field.ref}
                             error={!!errors.confirmPassword}
-                            helperText={errors.confirmPassword?.message} />
+                            helperText={errors.confirmPassword?.message}
+                        />
                     )}
                 />
                 <Button variant="contained" type="submit">
