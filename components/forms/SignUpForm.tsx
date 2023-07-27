@@ -11,7 +11,7 @@ import { Controller, useForm } from "react-hook-form";
 import { signUpSchema } from "@lib/yup/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
-import { HTTP_STATUS } from "@lib/constants";
+import { HTTP_STATUS, DID_USER_GET_CREATED } from "@lib/constants";
 
 type SignUpFormType = yup.InferType<typeof signUpSchema>;
 
@@ -29,7 +29,7 @@ export default function SignUpForm() {
             body: JSON.stringify(data),
         }).then((res) => {
             if (res.status === HTTP_STATUS.SUCCESS) {
-                localStorage.setItem("user_creation", "success");
+                localStorage.setItem(DID_USER_GET_CREATED.KEY, DID_USER_GET_CREATED.VALUE);
                 router.push("/login");
             } else if (res.status === HTTP_STATUS.USERNAME_ALREADY_EXISTS) {
                 setError("username", {
