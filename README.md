@@ -6,13 +6,13 @@ the user is loged in they can create and rate
 opinions.
 
 This project will also be my first attempt at working
-with [Material UI](https://mui.com/).
+with [Material UI](https://mui.com/)
 
 Form validation was done using [React-Hook-Form](https://www.react-hook-form.com/), [React-Hook-Form-Resolvers](https://github.com/react-hook-form/resolvers) and [yup](https://github.com/jquense/yup) 
 
 Page icon is taken from [SVGRepo](https://www.svgrepo.com/)
 
-Project's database will be [Postgres](https://www.postgresql.org/) with [Prisma](https://www.prisma.io/) as the ORM.
+Project's database will be [Postgres](https://www.postgresql.org/) with [Prisma](https://www.prisma.io/) as the ORM
 
 The database schema should look something like this
 
