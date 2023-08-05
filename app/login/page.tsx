@@ -7,7 +7,9 @@ export default function Login() {
     return (
         <>
             <Typography variant="h3" sx={{ textAlign: 'center' }}>Login</Typography>
+            
             <LoginForm />
+
             <Box 
                 display="flex" 
                 justifyContent="flex-end" 
