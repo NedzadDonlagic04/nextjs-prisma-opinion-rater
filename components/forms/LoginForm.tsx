@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { SyntheticEvent, useEffect, useState } from "react";
 
@@ -10,9 +10,9 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from "@lib/yup/schemas";
-import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "@yup/schemas";
+import * as yup from "yup";
 import { DID_USER_GET_CREATED } from "@lib/constants";
 
 type LoginFormType = yup.InferType<typeof loginSchema>;
@@ -20,34 +20,38 @@ type LoginFormType = yup.InferType<typeof loginSchema>;
 export default function LoginFormComponents() {
     const [snackbarOpen, snackbarOpenSetter] = useState(false);
 
-    const snackbarHandleClose = (event?: SyntheticEvent | Event, reason?: string) => {
-        if(reason === 'clickaway') {
+    const snackbarHandleClose = (
+        event?: SyntheticEvent | Event,
+        reason?: string
+    ) => {
+        if (reason === "clickaway") {
             return;
         }
         snackbarOpenSetter(false);
-    }
+    };
 
     useEffect(() => {
         const item = localStorage.getItem(DID_USER_GET_CREATED.KEY);
 
-        if(item) {
+        if (item) {
             snackbarOpenSetter(true);
             localStorage.removeItem(DID_USER_GET_CREATED.KEY);
         }
     }, []);
 
-    const { register, handleSubmit, control, formState } = useForm<LoginFormType>({
-        resolver: yupResolver(loginSchema),
-    });
+    const { register, handleSubmit, control, formState } =
+        useForm<LoginFormType>({
+            resolver: yupResolver(loginSchema),
+        });
     const { errors } = formState;
 
     const onSubmit = (data: LoginFormType) => {
-        fetch('/api/user/login', {
+        fetch("/api/user/login", {
             method: "POST",
             body: JSON.stringify(data),
-        })/* .then(res => console.log(res)) */;
+        }) /* .then(res => console.log(res)) */;
         // ^ Useful for debugging
-    }
+    };
 
     return (
         <>
@@ -64,6 +68,7 @@ export default function LoginFormComponents() {
                     Account created! Please login now!
                 </Alert>
             </Snackbar>
+
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 style={{ width: "100%", maxWidth: "450px" }}
@@ -90,6 +95,7 @@ export default function LoginFormComponents() {
                             />
                         )}
                     />
+
                     <Button variant="contained" type="submit">
                         Login
                     </Button>

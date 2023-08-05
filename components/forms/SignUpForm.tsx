@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
 
@@ -8,9 +8,9 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 import { Controller, useForm } from "react-hook-form";
-import { signUpSchema } from "@lib/yup/schemas";
+import { signUpSchema } from "@yup/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from 'yup';
+import * as yup from "yup";
 import { HTTP_STATUS, DID_USER_GET_CREATED } from "@lib/constants";
 
 type SignUpFormType = yup.InferType<typeof signUpSchema>;
@@ -18,18 +18,22 @@ type SignUpFormType = yup.InferType<typeof signUpSchema>;
 export default function SignUpForm() {
     const router = useRouter();
 
-    const { register, handleSubmit, control, formState, setError } = useForm<SignUpFormType>({
-        resolver: yupResolver(signUpSchema),
-    });
+    const { register, handleSubmit, control, formState, setError } =
+        useForm<SignUpFormType>({
+            resolver: yupResolver(signUpSchema),
+        });
     const { errors } = formState;
 
     const onSubmit = (data: SignUpFormType) => {
         fetch("/api/user/signup", {
             method: "POST",
             body: JSON.stringify(data),
-        }).then((res) => {
+        }).then(res => {
             if (res.status === HTTP_STATUS.SUCCESS) {
-                localStorage.setItem(DID_USER_GET_CREATED.KEY, DID_USER_GET_CREATED.VALUE);
+                localStorage.setItem(
+                    DID_USER_GET_CREATED.KEY,
+                    DID_USER_GET_CREATED.VALUE
+                );
                 router.push("/login");
             } else if (res.status === HTTP_STATUS.USERNAME_ALREADY_EXISTS) {
                 setError("username", {
@@ -53,6 +57,7 @@ export default function SignUpForm() {
                     error={!!errors.username}
                     helperText={errors.username?.message}
                 />
+
                 <TextField
                     required
                     label="Email"
@@ -60,6 +65,7 @@ export default function SignUpForm() {
                     error={!!errors.email}
                     helperText={errors.email?.message}
                 />
+
                 <Controller
                     name="password"
                     control={control}
@@ -74,6 +80,7 @@ export default function SignUpForm() {
                         />
                     )}
                 />
+
                 <Controller
                     name="confirmPassword"
                     control={control}
@@ -88,6 +95,7 @@ export default function SignUpForm() {
                         />
                     )}
                 />
+
                 <Button variant="contained" type="submit">
                     Sign Up
                 </Button>
