@@ -1,5 +1,5 @@
-import { loginSchema } from "@lib/yup/schemas";
-import * as yup from 'yup';
+import { loginSchema } from "@yup/schemas";
+import * as yup from "yup";
 
 type LoginFormData = yup.InferType<typeof loginSchema>;
 
@@ -10,16 +10,17 @@ export async function POST(req: Request) {
         loginFormData = await loginSchema.validate(await req.json());
 
         console.log(loginFormData);
-    } catch(err) {
-        if(err instanceof yup.ValidationError) console.error(`Error message: ${err.message}`);
+    } catch (err) {
+        if (err instanceof yup.ValidationError)
+            console.error(`Error message: ${err.message}`);
         else console.error(`Error: ${err}`);
-        
-        return new Response("Validation error", {
-            status: 400
-        });
-    } 
 
-    return new Response('User logged in', {
-        status: 200
+        return new Response("Validation error", {
+            status: 400,
+        });
+    }
+
+    return new Response("User logged in", {
+        status: 200,
     });
 }
