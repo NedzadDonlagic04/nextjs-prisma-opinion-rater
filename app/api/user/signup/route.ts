@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from "@lib/constants";
+import { RESPONSES } from "@lib/constants";
 import { signUpSchema } from "@yup/schemas";
 import * as yup from "yup";
 import prisma from "@lib/prisma";
@@ -6,6 +6,8 @@ import prisma from "@lib/prisma";
 type SignUpFormData = yup.InferType<typeof signUpSchema>;
 
 export async function POST(req: Request) {
+    const { SUCCESS, VALIDATION_ERROR, USERNAME_ALREADY_EXISTS } = RESPONSES;
+
     let signUpFormData: SignUpFormData;
 
     try {
@@ -22,19 +24,19 @@ export async function POST(req: Request) {
         if (err instanceof yup.ValidationError) {
             console.error(`Error message: ${err.message}`);
 
-            return new Response(null, {
-                status: HTTP_STATUS.VALIDATION_ERROR,
+            return new Response(VALIDATION_ERROR.getMessage(), {
+                status: VALIDATION_ERROR.getStatus(),
             });
         } else {
             console.error(`Error: ${err}`);
 
-            return new Response(null, {
-                status: HTTP_STATUS.USERNAME_ALREADY_EXISTS,
-            });
-        }
+            return new Response(USERNAME_ALREADY_EXISTS.getMessage(), {
+                status: USERNAME_ALREADY_EXISTS.getStatus(),
+            });        
+        }   
     }
 
-    return new Response(null, {
-        status: HTTP_STATUS.SUCCESS,
+    return new Response(SUCCESS.getMessage(), {
+        status: SUCCESS.getStatus(),
     });
 }
