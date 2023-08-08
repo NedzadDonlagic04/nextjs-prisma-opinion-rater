@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { SyntheticEvent, useEffect, useState } from "react";
 
 import TextField from "@mui/material/TextField";
@@ -13,11 +14,13 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@yup/schemas";
 import * as yup from "yup";
-import { DID_USER_GET_CREATED } from "@lib/constants";
+import { DID_USER_GET_CREATED, RESPONSES } from "@lib/constants";
 
 type LoginFormType = yup.InferType<typeof loginSchema>;
 
 export default function LoginFormComponents() {
+    const router = useRouter();
+
     const [snackbarOpen, snackbarOpenSetter] = useState(false);
 
     const snackbarHandleClose = (
@@ -39,7 +42,7 @@ export default function LoginFormComponents() {
         }
     }, []);
 
-    const { register, handleSubmit, control, formState } =
+    const { register, handleSubmit, control, formState, setError } =
         useForm<LoginFormType>({
             resolver: yupResolver(loginSchema),
         });
@@ -49,7 +52,24 @@ export default function LoginFormComponents() {
         fetch("/api/user/login", {
             method: "POST",
             body: JSON.stringify(data),
-        }) /* .then(res => console.log(res)) */;
+        }).then(res => res.text())
+          .then(text => {
+            const { SUCCESS, USERNAME_DOESNT_EXIST, PASSWORD_DOESNT_MATCH, VALIDATION_ERROR } = RESPONSES;
+
+            if (text === SUCCESS.getMessage()) {
+                router.push("/posts");
+            } else if (text === USERNAME_DOESNT_EXIST.getMessage()) {
+                setError("username", {
+                    type: "custom",
+                    message: "Username doesn't exist",
+                });
+            } else if (text === PASSWORD_DOESNT_MATCH.getMessage()) {
+                setError("password", {
+                    type: "custom",
+                    message: "Incorrect password",
+                });
+            }
+        });
         // ^ Useful for debugging
     };
 
